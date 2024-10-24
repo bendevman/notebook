@@ -22,7 +22,7 @@
           <span class="menu__link-text">Home</span>
         </a>
       </li>
-      <?php if (!isset($_SESSION['login'])):?>
+      <?php if (!isset($_SESSION['id'])):?>
         <li class="menu__item">
           <a href="sign-in.php" class="menu__link">
             <span class="menu__link-text">Sign in</span>

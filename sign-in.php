@@ -1,9 +1,13 @@
 
 <?php include 'header.php';?>
 <?php 
+  if(isset($_SESSION['id'])) {
+    header('Location: index.php');
+  }
+
   $login = '';
   $password = '';
-  $passwordHash = '';
+  $id = '';
   $errors = [];
 
   $regEmail = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/';
@@ -12,6 +16,7 @@
 
   $chekForUserSql = '';
   $userResult = '';
+  $userExist = '';
   
   if (isset($_POST['sign-in-btn'])) {
     if (!empty($_POST['login'])) {
@@ -20,7 +25,9 @@
 
         $chekForUserSql = "select * from users where login = '$login'";
         $userResult = mysqli_query($db, $chekForUserSql);
-        if (!mysqli_num_rows($userResult)) {
+        $userExist = mysqli_fetch_assoc($userResult);
+
+        if (!$userExist) {
           array_push($errors,'No user with this login exist, please register');
         }
       } else {
@@ -39,17 +46,9 @@
       array_push($errors,'Password is required');
     }
     if (!$errors) {
-      $_SESSION['login'] = $login;
-      $userExist = mysqli_fetch_assoc($userResult);
-
-      if ($userExist) {
-        $passwordHash = $userExist['password'];
-        if (password_verify($password, $passwordHash)) {
-          $_SESSION['login'] = $login;
-          header('Location: index.php');
-        }
-      } else {
-        echo 'Error: '. mysqli_error($db);
+      if (password_verify($password, $userExist['password'])) {
+        $_SESSION['id'] = $userExist['id'];
+        header('Location: index.php');
       }
     }
   }

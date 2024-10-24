@@ -1,6 +1,10 @@
 
 <?php include 'header.php';?>
-<?php 
+<?php
+  if(isset($_SESSION['id'])) {
+    header('Location: index.php');
+  }
+  
   $login = '';
   $password = '';
   $passwordHash = '';
