@@ -469,6 +469,15 @@ label {
   padding: 5px;
 }
 
+.login__title> i, .password__title> i {
+  font-size: 12px;
+}
+
 .title {
   text-align: center;
+}
+
+.error-msg {
+  color: red;
+  max-width: 250px;
 }

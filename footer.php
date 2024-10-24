@@ -1,3 +1,6 @@
+<?php 
+  $db -> close();
+?>
   <div class="footer section">
     <p>© 2024 Bendevman</p>
   </div>
