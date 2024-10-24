@@ -1,5 +1,6 @@
 <?php 
   include 'config.php';
+  session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,20 +22,28 @@
           <span class="menu__link-text">Home</span>
         </a>
       </li>
-      <li class="menu__item">
-        <a href="sign-in.php" class="menu__link">
-          <span class="menu__link-text">Sign in</span>
-        </a>
-      </li>
-      <li class="menu__item">
-        <a href="register.php" class="menu__link">
-          <span class="menu__link-text">Register</span>
-        </a>
-      </li>
-      <li class="menu__item">
-        <a href="user.php" class="menu__link">
-          <span class="menu__link-text">User</span>
-        </a>
-      </li>
+      <?php if (!isset($_SESSION['login'])):?>
+        <li class="menu__item">
+          <a href="sign-in.php" class="menu__link">
+            <span class="menu__link-text">Sign in</span>
+          </a>
+        </li>
+        <li class="menu__item">
+          <a href="register.php" class="menu__link">
+            <span class="menu__link-text">Register</span>
+          </a>
+        </li>
+      <?php else:?>
+        <li class="menu__item">
+          <a href="sign-out.php" class="menu__link">
+            <span class="menu__link-text">Sign out</span>
+          </a>
+        </li>
+        <li class="menu__item">
+          <a href="user.php" class="menu__link">
+            <span class="menu__link-text">User</span>
+          </a>
+        </li>
+      <?php endif?>
     </ul>
   </div>
